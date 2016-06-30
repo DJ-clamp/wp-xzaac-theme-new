@@ -213,6 +213,8 @@ function zillah_scripts() {
 
 	wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/css/font-awesome.min.css', array(), 'v4.5.0', false );
 
+	wp_enqueue_style( 'jplayer', get_template_directory_uri() . '/css/jplayer.it.css');
+
 	wp_enqueue_script( 'zillah-functions-js', get_template_directory_uri() . '/js/functions.js', array('jquery'), '20151216', true );
 
 	wp_localize_script( 'zillah-functions-js', 'screenReaderText', array(
@@ -223,6 +225,8 @@ function zillah_scripts() {
 	wp_enqueue_script( 'boostrap-js', get_template_directory_uri() . '/js/bootstrap.min.js', array('jquery'), '20130115', true );
 
 	wp_enqueue_script( 'zillah-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
+
+	wp_enqueue_script( 'jplayer-js', get_template_directory_uri() . '/js/jplayer.it.min.js', array('jquery'));
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -883,6 +887,36 @@ function zillah_post_video() {
 	}
 	
 }
+
+
+add_action( 'wp_ajax_nopriv_get_media', 'get_media' );
+add_action( 'wp_ajax_get_media', 'get_media' );
+/**
+ * admin-ajax请求数据
+ *
+ * @since DjxClamp
+ */
+function get_media() {
+	$postID = $_GET['id'];
+	$data = get_post($postID,OBJECT)->post_content;
+	$content    = strip_tags($data);
+	$front      = (strpos($content,"[embed]"));
+	if ($front !== false) {
+		$after      = (strpos($content,"[/embed]"));
+		$url =  (substr($content,$front+7,$after-11));
+	}else{
+		$url = null;
+	}
+	$arr = [
+		'id'    => $postID,
+		'mp3'   => $url,
+		'title' => str_replace("&#8211;","-",get_the_title($postID))
+	];
+	header( "Content-Type: application/json" );
+	echo $response = json_encode($arr,JSON_UNESCAPED_UNICODE);
+	exit;
+}
+
 
 
 

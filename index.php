@@ -28,6 +28,7 @@ get_header(); ?>
 				if ( is_home() && ! is_front_page() ) : ?>
 					<header>
 						<h1 class="page-title screen-reader-text"><?php single_post_title(); ?></h1>
+						<span><?php $post->ID?></span>
 					</header>
 
 				<?php
@@ -63,6 +64,25 @@ get_header(); ?>
 		?>
 
 	</div><!-- .content-wrap -->
+	<div class="demo-wrapper">
+		<div id="jquery_jplayer_audio_1" class="jplayer"></div>
+		<div id="demo" class="audio" role="application" aria-label="media player">
+			<div class="play-control control">
+				<button class="play button" role="button" aria-label="play" tabindex="0"></button>
+			</div>
+			<div class="bar">
+				<div class="seek-bar seek-bar-display"></div>
+				<div class="seek-bar">
+					<div class="play-bar"></div>
+					<div class="details">
+						<span class="title" aria-label="title"></span>
+					</div>
+					<div class="timing">
+						<span class="duration" role="timer" aria-label="duration"></span>
+					</div>
+				</div>
+			</div>
+		</div>
 
 <?php
 get_footer();
