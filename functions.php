@@ -362,7 +362,8 @@ add_action( 'wp_ajax_get_media', 'get_media' );
  */
 function get_media() {
 	$postID = $_GET['id'];
-	$data = get_post($postID)->post_content;
+	$data = get_post($postID,OBJECT)->post_content;
+	$data = substr($data,strpos($data,'[embed]'));
 	$content    =  array_values(array_filter(explode('[embed]',substr($data,0,strrpos($data,'[/embed]')))))[0];
 	if($content !== NULL){
 		$url = trim($content);
