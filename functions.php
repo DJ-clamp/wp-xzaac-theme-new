@@ -215,7 +215,6 @@ function zillah_scripts() {
 
 	wp_enqueue_style( 'jplayer', get_template_directory_uri() . '/css/jplayer.it.css');
 
-	wp_deregister_script('jquery');
 
 	wp_enqueue_script( 'zillah-functions-js', get_template_directory_uri() . '/js/functions.js', array('jquery'), '20151216', true );
 
