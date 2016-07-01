@@ -215,6 +215,8 @@ function zillah_scripts() {
 
 	wp_enqueue_style( 'jplayer', get_template_directory_uri() . '/css/jplayer.it.css');
 
+	wp_deregister_script('jquery');
+
 	wp_enqueue_script( 'zillah-functions-js', get_template_directory_uri() . '/js/functions.js', array('jquery'), '20151216', true );
 
 	wp_localize_script( 'zillah-functions-js', 'screenReaderText', array(
@@ -226,7 +228,9 @@ function zillah_scripts() {
 
 	wp_enqueue_script( 'zillah-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
-	wp_enqueue_script( 'jplayer-js', get_template_directory_uri() . '/js/jplayer.it.min.js', array('jquery'));
+
+	wp_enqueue_script( 'jplayer-js', get_template_directory_uri() . '/js/jquery.jplayer.min.js');
+	wp_enqueue_script( 'jplayer-custom', get_template_directory_uri() . '/js/player.js');
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -903,7 +907,7 @@ function get_media() {
 	$front      = (strpos($content,"[embed]"));
 	if ($front !== false) {
 		$after      = (strpos($content,"[/embed]"));
-		$url =  (substr($content,$front+7,$after-11));
+		$url =  (substr($content,$front+7,$after-7.));
 	}else{
 		$url = null;
 	}

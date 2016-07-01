@@ -72,6 +72,6 @@
 </div><!-- #page -->
 
 <?php wp_footer(); ?>
-
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js" type="text/javascript"></script>
 </body>
 </html>

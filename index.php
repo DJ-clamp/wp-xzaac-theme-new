@@ -68,7 +68,7 @@ get_header(); ?>
 		<div id="jquery_jplayer_audio_1" class="jplayer"></div>
 		<div id="demo" class="audio" role="application" aria-label="media player">
 			<div class="play-control control">
-				<button class="play button" role="button" aria-label="play" tabindex="0"></button>
+				<button class="play button jp-play" role="button" aria-label="play" tabindex="0"></button>
 			</div>
 			<div class="bar">
 				<div class="seek-bar seek-bar-display"></div>
@@ -83,6 +83,9 @@ get_header(); ?>
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript">
+		
+		</script>
 
 <?php
 get_footer();
