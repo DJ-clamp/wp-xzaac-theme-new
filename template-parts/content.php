@@ -12,8 +12,9 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'blog-post entry-content-wrap' ); ?>>
-	<span class="play-me" data-id="<?php the_ID()?>">播放</span>
+	
 	<?php if( $post_format !== 'quote' ) : ?>
+	<span class="play-me fa fa-play fa-3x" data-id="<?php the_ID()?>"></span>
 		<header class="entry-header">
 			<div class="content-inner-wrap">
 				<?php

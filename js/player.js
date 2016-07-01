@@ -9,13 +9,14 @@ jQuery(document).ready(function (a) {
             }).jPlayer('player');
         },
         play: function () {
-
             a('.bar').animate({ 'top': "0px", opacity: 0.8 });
             a(this).jPlayer("pauseOthers")
         },
         pause: function () {
+            a('.play-me').removeClass('fa-pause');
             a('.bar').animate({ 'top': "10px", opacity: 0 });
         },
+        
         swfPath: "js",
         supplied: "mp3,m4a",
         cssSelectorAncestor: "#demo",
@@ -68,6 +69,8 @@ jQuery(document).ready(function (a) {
 
     jQuery(".play-me").click(function () {
         $postID = a(this).attr("data-id");
+        a('.play-me').removeClass('fa-pause');
+        a(this).toggleClass('fa-pause');
         a.ajax({
             type: "GET",
             url: "/wp-admin/admin-ajax.php?action=get_media&id=" + $postID,

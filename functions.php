@@ -353,6 +353,32 @@ function zillah_brand(){
 }
 
 
+add_action( 'wp_ajax_nopriv_get_media', 'get_media' );
+add_action( 'wp_ajax_get_media', 'get_media' );
+/**
+ * admin-ajax请求数据
+ *
+ * @since DjxClamp
+ */
+function get_media() {
+	$postID = $_GET['id'];
+	$data = get_post($postID)->post_content;
+	$content    =  array_values(array_filter(explode('[embed]',substr($data,0,strrpos($data,'[/embed]')))))[0];
+	if($content !== NULL){
+		$url = trim($content);
+	}else{
+		$url = null;
+	}
+	$arr = [
+		'id'    => $postID,
+		'mp3'   => $url,
+		'title' => str_replace("&#8211;","-",get_the_title($postID))
+	];
+	header( "Content-Type: application/json" );
+	echo $response = json_encode($arr,JSON_UNESCAPED_UNICODE);
+	exit;
+}
+
 /**
  * Display social icons
  *
@@ -891,39 +917,6 @@ function zillah_post_video() {
 	
 }
 
-
-add_action( 'wp_ajax_nopriv_get_media', 'get_media' );
-add_action( 'wp_ajax_get_media', 'get_media' );
-/**
- * admin-ajax请求数据
- *
- * @since DjxClamp
- */
-function get_media() {
-	$postID = $_GET['id'];
-	$data = get_post($postID,OBJECT)->post_content;
-	$content    = strip_tags($data);
-	$front      = (strpos($content,"[embed]"));
-	if ($front !== false) {
-		$after      = (strpos($content,"[/embed]"));
-		$url =  (substr($content,$front+7,$after-7.));
-	}else{
-		$url = null;
-	}
-	$arr = [
-		'id'    => $postID,
-		'mp3'   => $url,
-		'title' => str_replace("&#8211;","-",get_the_title($postID))
-	];
-	header( "Content-Type: application/json" );
-	echo $response = json_encode($arr,JSON_UNESCAPED_UNICODE);
-	exit;
-}
-
-
-
-
-
 function zillah_themeisle_sdk(){
 	require 'vendor/themeisle/load.php';
 	themeisle_sdk_register (
@@ -939,4 +932,6 @@ function zillah_themeisle_sdk(){
 
 zillah_themeisle_sdk(); 
 
+
+?>
  
